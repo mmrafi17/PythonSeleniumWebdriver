@@ -2,5 +2,4 @@
 # pytest method should start with test_
 import pytest
 
-def test_firstprogram():
-    print("HelloWorld!")
+
