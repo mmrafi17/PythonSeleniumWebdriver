@@ -21,5 +21,5 @@ class CheckoutPage:
 
     def get_button_checkout(self):
         self.driver.find_element(*CheckoutPage.buttonCheckout).click()
-        confirmPage = ConfirmPage(self.driver)
-        return confirmPage
+        confirm_page = ConfirmPage(self.driver)
+        return confirm_page

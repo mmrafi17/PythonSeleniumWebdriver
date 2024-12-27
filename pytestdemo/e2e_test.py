@@ -3,6 +3,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
 
+from pageObjects.checkout_page import CheckoutPage
+from pageObjects.confirm_page import ConfirmPage
 from pageObjects.home_page import Homepage
 from utilities.BaseClass import BaseClass
 
@@ -14,15 +16,19 @@ class TestOne(BaseClass):
         home_page = Homepage(self.driver)
         home_page.shop_items().click()
         # self.driver.find_element(By.CSS_SELECTOR, "a[href*='shop']").click()
-        products = self.driver.find_elements(By.XPATH, "//div[@class='card h-100']")
+        products = home_page.get_products()
 
         for product in products:
             product_name = product.find_element(By.XPATH, "div/h4/a").text
             if product_name == "Blackberry":
                 product.find_element(By.XPATH, "div/button").click()
 
-        self.driver.find_element(By.CSS_SELECTOR, "a[class='nav-link btn btn-primary']").click()
-        self.driver.find_element(By.XPATH, "//button[@class='btn btn-success']").click()
+        checkout_page = CheckoutPage(self.driver)
+        checkout_page.get_button_primary_co().click()
+        # self.driver.find_element(By.CSS_SELECTOR, "a[class='nav-link btn btn-primary']").click()
+        checkout_page.get_button_checkout()
+        # self.driver.find_element(By.XPATH, "//button[@class='btn btn-success']").click()
+
         self.driver.find_element(By.ID, "country").send_keys("ind")
         self.verifylink('India')
         self.driver.find_element(By.LINK_TEXT, "India").click()
