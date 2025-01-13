@@ -1,5 +1,7 @@
 import pytest
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+
 
 def pytest_addoption(parser):
     parser.addoption(
@@ -11,12 +13,11 @@ def setup(request):
 
     # chrome driver
     # -- Chrome
-    # service_obj = Service("/Users/MRF/Downloads/Compressed/chromedriver-win64/chromedriver.exe")
-    # driver = webdriver.Chrome(service=service_obj)
+
     browser_name = request.config.getoption("browser_name")
     if browser_name == 'chrome':
-        driver = webdriver.Chrome()
-        driver.maximize_window()
+        service_obj = Service("D:/Automation/chromedriver-win64/chromedriver.exe")
+        driver = webdriver.Chrome(service=service_obj)
         driver.implicitly_wait(4)
         driver.get("https://rahulshettyacademy.com/angularpractice/")
         request.cls.driver = driver
